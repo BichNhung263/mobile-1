@@ -30,7 +30,6 @@
         android:layout_marginTop="50dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-
         android:drawablePadding="10dp"
         android:backgroundTint="@null"
         android:hint="Email"
@@ -48,7 +47,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-
         android:drawablePadding="10dp"
         android:hint="Username"
         android:inputType="textPassword"
@@ -70,25 +68,42 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etPassword" />
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="30dp"
-        android:background="@null"
-        android:backgroundTint="@color/white"
-        android:text="LOGIN"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+    <LinearLayout
+        android:id="@+id/llSocialButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/tvForgotPassword"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvForgotPassword" />
+        app:layout_constraintEnd_toEndOf="parent">
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="15dp"
+            android:backgroundTint="@color/white"
+            android:text="LOGIN"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:drawablePadding="8dp"
+            android:gravity="center" />
 
-
-
-
-
-
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="30dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:text="Register"
+            android:textSize="10sp"
+            android:textColor="@color/black" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

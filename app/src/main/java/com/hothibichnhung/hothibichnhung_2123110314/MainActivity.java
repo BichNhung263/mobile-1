@@ -2,8 +2,7 @@ package com.hothibichnhung.hothibichnhung_2123110314;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,5 +23,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("email");
+        String pass = intent.getStringExtra("pass");
+
+        TextView txtResult = findViewById(R.id.txtResult);
+        txtResult.setText("Xin chào: " + email + "\nPassword: " + pass);
     }
 }
