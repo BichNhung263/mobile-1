@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "HoThiBichNhung_2123110314"
 include(":app")
+ 
