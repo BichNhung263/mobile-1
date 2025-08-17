@@ -1,14 +1,12 @@
 package com.hothibichnhung.hothibichnhung_2123110314;
 
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.util.Log;
-=======
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ProgressBar;
->>>>>>> 08a1d20 (Data)
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,36 +16,35 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-<<<<<<< HEAD
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+//import com.android.volley.Request;
+//import com.android.volley.RequestQueue;
+//import com.android.volley.Response;
+//import com.android.volley.VolleyError;
+//import com.android.volley.toolbox.StringRequest;
+//import com.android.volley.toolbox.Volley;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
-    private static final String TAG = "MainActivity";
-    private TextView txtResult;
-
-    private RequestQueue mRequestQueue;
-    private StringRequest mStringRequest;
-    private String url = "https://jsonplaceholder.typicode.com/users/1";
-=======
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
 public class MainActivity extends AppCompatActivity {
+
+//    private static final String TAG = "MainActivity";
+//    private TextView txtResult;
+//
+//    private RequestQueue mRequestQueue;
+//    private StringRequest mStringRequest;
+//    private String url = "https://jsonplaceholder.typicode.com/users/1";
+
 
     private EditText nameEdt, jobEdt;
     private Button postDataBtn;
     private TextView responseTV;
     private ProgressBar loadingPB;
->>>>>>> 08a1d20 (Data)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,39 +58,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-<<<<<<< HEAD
-        txtResult = findViewById(R.id.txtResult);
+//        txtResult = findViewById(R.id.idTVResponse);
 
         // Gọi hàm getData
-        getData();
-    }
+        //getData();
 
-    private void getData() {
-        // Khởi tạo RequestQueue
-        mRequestQueue = Volley.newRequestQueue(this);
-
-        // Tạo StringRequest
-        mStringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Hiển thị kết quả
-                        txtResult.setText(response);
-                        Toast.makeText(getApplicationContext(), "Response: " + response, Toast.LENGTH_LONG).show();
-                        Log.i(TAG, "Response: " + response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        txtResult.setText("Error: " + error.toString());
-                        Log.e(TAG, "Error: " + error.toString());
-                    }
-                });
-
-        // Thêm request vào hàng đợi
-        mRequestQueue.add(mStringRequest);
-=======
         nameEdt = findViewById(R.id.idEdtName);
         jobEdt = findViewById(R.id.idEdtJob);
         postDataBtn = findViewById(R.id.idBtnPost);
@@ -110,7 +79,29 @@ public class MainActivity extends AppCompatActivity {
                 postData(nameEdt.getText().toString(), jobEdt.getText().toString());
             }
         });
+
     }
+
+//    private void getData() {
+//        mRequestQueue = Volley.newRequestQueue(this);
+//        mStringRequest = new StringRequest(Request.Method.GET, url,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        txtResult.setText(response);
+//                        Toast.makeText(getApplicationContext(), "Response: " + response, Toast.LENGTH_LONG).show();
+//                        Log.i(TAG, "Response: " + response);
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        txtResult.setText("Error: " + error.toString());
+//                        Log.e(TAG, "Error: " + error.toString());
+//                    }
+//                });
+//        mRequestQueue.add(mStringRequest);
+//    }
 
     private void postData(String name, String job) {
         loadingPB.setVisibility(View.VISIBLE);
@@ -121,22 +112,20 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-
         DataModal modal = new DataModal(name, job);
-
         Call<DataModal> call = retrofitAPI.createPost(modal);
 
         call.enqueue(new Callback<DataModal>() {
             @Override
-            public void onResponse(Call<DataModal> call, Response<DataModal> response) {
+            public void onResponse(Call<DataModal> call, retrofit2.Response<DataModal> response) {
                 Toast.makeText(MainActivity.this, "Data added to API", Toast.LENGTH_SHORT).show();
                 loadingPB.setVisibility(View.GONE);
                 jobEdt.setText("");
                 nameEdt.setText("");
                 DataModal responseFromAPI = response.body();
-                String responseString = "Response Code : " + response.code()
-                        + "\nName : " + responseFromAPI.getName()
-                        + "\nJob : " + responseFromAPI.getJob();
+                String responseString = "Response Code : " + response.code() +
+                        "\nName : " + responseFromAPI.getName() +
+                        "\nJob : " + responseFromAPI.getJob();
                 responseTV.setText(responseString);
             }
 
@@ -146,6 +135,5 @@ public class MainActivity extends AppCompatActivity {
                 responseTV.setText("Error found is : " + t.getMessage());
             }
         });
->>>>>>> 08a1d20 (Data)
     }
 }

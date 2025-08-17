@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:text="Giỏ Hàng"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- Danh sách sản phẩm -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/layoutCart"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+    <!-- Tổng tiền -->
+    <TextView
+        android:id="@+id/txtTotal"
+        android:text="Tổng tiền: 0đ"
+        android:textSize="18sp"
+        android:textColor="@android:color/holo_red_dark"
+        android:gravity="end"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- Nút thanh toán -->
+    <TextView
+        android:id="@+id/btnCheckout"
+        android:text="Thanh toán"
+        android:gravity="center"
+        android:background="@android:color/holo_green_dark"
+        android:textColor="@android:color/white"
+        android:padding="12dp"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

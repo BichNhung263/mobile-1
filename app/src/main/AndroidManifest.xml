@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-<<<<<<< HEAD
 
-
-
-=======
     <uses-permission android:name="android.permission.INTERNET"/>
->>>>>>> 08a1d20 (Data)
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -19,10 +15,12 @@
         android:theme="@style/Theme.HoThiBichNhung_2123110314"
         tools:targetApi="31">
 
+        <!-- Trang chi tiết sản phẩm -->
         <activity
-<<<<<<< HEAD
-            android:name=".MainActivity"
-=======
+            android:name=".ProductDetailActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
@@ -30,14 +28,15 @@
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
->>>>>>> 08a1d20 (Data)
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>
