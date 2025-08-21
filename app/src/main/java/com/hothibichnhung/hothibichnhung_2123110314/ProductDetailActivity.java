@@ -1,19 +1,13 @@
 package com.hothibichnhung.hothibichnhung_2123110314;
 
-
-
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
@@ -32,53 +26,29 @@ public class ProductDetailActivity extends AppCompatActivity {
         txtDescription = findViewById(R.id.txtProductDescription);
         btnAddToCart = findViewById(R.id.btnAddToCart);
 
-        // Nhận dữ liệu từ Intent
+        // Nhận dữ liệu từ HomeActivity
         String name = getIntent().getStringExtra("name");
-        String price = getIntent().getStringExtra("price");
+        double price = getIntent().getDoubleExtra("price", 0);
         int image = getIntent().getIntExtra("image", 0);
         String description = getIntent().getStringExtra("description");
 
-        // Gán dữ liệu
-        imgProduct.setImageResource(image);
+        // Format giá tiền VNĐ
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+
+        // Hiển thị
         txtName.setText(name);
-        txtPrice.setText(price);
+        txtPrice.setText(nf.format(price)); // ✅ hiện giá tiền đúng định dạng
         txtDescription.setText(description);
+        imgProduct.setImageResource(image);
 
-        btnAddToCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Lấy dữ liệu sản phẩm
-                String name = txtName.getText().toString();
-                String price = txtPrice.getText().toString();
-                String description = txtDescription.getText().toString();
-                int imageRes = getIntent().getIntExtra("image", 0);
-
-                // Lưu vào giỏ hàng
-                SharedPreferences prefs = getSharedPreferences("cart", MODE_PRIVATE);
-                String oldCart = prefs.getString("cart_items", "[]");
-
-                try {
-                    JSONArray cartArray = new JSONArray(oldCart);
-
-                    JSONObject product = new JSONObject();
-                    product.put("name", name);
-                    product.put("price", price);
-                    product.put("description", description);
-                    product.put("image", imageRes);
-
-                    cartArray.put(product);
-
-                    prefs.edit().putString("cart_items", cartArray.toString()).apply();
-
-                    Toast.makeText(ProductDetailActivity.this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(ProductDetailActivity.this, "Lỗi khi thêm vào giỏ", Toast.LENGTH_SHORT).show();
-                }
-            }
+        // Nút thêm vào giỏ hàng
+        btnAddToCart.setOnClickListener(v -> {
+            Product p = new Product(name, price, image);
+            MyData.cartList.add(p);
+            finish(); // Quay lại màn hình trước
         });
-
     }
 }
+
+
 
