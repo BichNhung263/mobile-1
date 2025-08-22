@@ -10,6 +10,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -45,8 +46,8 @@ public class HomeActivity extends AppCompatActivity {
 
     // Load danh mục
     private void loadCategories() {
-        String[] categories = {"Mèo Con", "Chó Con", "Thức Ăn", "Cát Vệ Sinh"};
-        int[] icons = {R.drawable.product1, R.drawable.product2, R.drawable.product4, R.drawable.product5};
+        String[] categories = {"Mèo Con", "Chó Con", "Thức Ăn", "Cát Vệ Sinh", "Sữa Tắm Khô"};
+        int[] icons = {R.drawable.product1, R.drawable.product2, R.drawable.product4, R.drawable.product5, R.drawable.product6};
 
         for (int i = 0; i < categories.length; i++) {
             LinearLayout item = new LinearLayout(this);
@@ -76,6 +77,7 @@ public class HomeActivity extends AppCompatActivity {
         productList.add(new Product("Chó Con", 15000000, R.drawable.product2));
         productList.add(new Product("Thức Ăn", 3000000, R.drawable.product4));
         productList.add(new Product("Cát Vệ Sinh", 55000, R.drawable.product5));
+        productList.add(new Product("Sữa tắm khô", 110000, R.drawable.product6));
 
         gridProducts.setAdapter(new ProductAdapter());
     }
@@ -152,6 +154,11 @@ public class HomeActivity extends AppCompatActivity {
             // Click icon giỏ hàng -> thêm vào giỏ
             cartIcon.setOnClickListener(v -> {
                 MyData.cartList.add(product);
+
+                //  Hiện thông báo thêm thành công
+                Toast.makeText(HomeActivity.this,
+                        product.getName() + " đã thêm vào giỏ hàng ",
+                        Toast.LENGTH_SHORT).show();
             });
 
             return layout;

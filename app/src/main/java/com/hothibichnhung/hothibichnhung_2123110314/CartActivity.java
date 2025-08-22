@@ -39,7 +39,7 @@ public class CartActivity extends AppCompatActivity {
         });
     }
 
-    // ✅ Hàm cập nhật tổng tiền
+    //  Hàm cập nhật tổng tiền
     private void updateTotal() {
         int total = 0;
         for (Product p : MyData.cartList) {

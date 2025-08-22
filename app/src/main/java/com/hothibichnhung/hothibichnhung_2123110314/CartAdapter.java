@@ -61,12 +61,12 @@ public class CartAdapter extends BaseAdapter {
         NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
         txtPrice.setText(nf.format(p.getPrice()));
 
-        // ❌ Nút xóa sản phẩm
+        //  Nút xóa sản phẩm
         btnRemove.setOnClickListener(v -> {
             cartList.remove(position);
             notifyDataSetChanged();
             if (listener != null) {
-                listener.onCartUpdated(); // ✅ báo về CartActivity cập nhật lại tổng tiền
+                listener.onCartUpdated(); //  báo về CartActivity cập nhật lại tổng tiền
             }
         });
 

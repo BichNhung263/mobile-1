@@ -37,7 +37,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         // Hiển thị
         txtName.setText(name);
-        txtPrice.setText(nf.format(price)); // ✅ hiện giá tiền đúng định dạng
+        txtPrice.setText(nf.format(price)); //  hiện giá tiền đúng định dạng
         txtDescription.setText(description);
         imgProduct.setImageResource(image);
 
@@ -49,6 +49,3 @@ public class ProductDetailActivity extends AppCompatActivity {
         });
     }
 }
-
-
-
