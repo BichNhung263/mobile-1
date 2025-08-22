@@ -10,11 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.NumberFormat;
 import java.util.Locale;
-
 public class CartActivity extends AppCompatActivity {
     ListView listView;
     TextView txtTotal;
     Button btnCheckout;
+    CartAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,17 +25,12 @@ public class CartActivity extends AppCompatActivity {
         txtTotal = findViewById(R.id.txtTotal);
         btnCheckout = findViewById(R.id.btnCheckout);
 
-        // Gắn adapter
-        CartAdapter adapter = new CartAdapter(this, MyData.cartList);
+        // Gắn adapter với listener
+        adapter = new CartAdapter(this, MyData.cartList, this::updateTotal);
         listView.setAdapter(adapter);
 
-        // Tính tổng tiền
-        int total = 0;
-        for (Product p : MyData.cartList) {
-            total += p.getPrice();
-        }
-        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-        txtTotal.setText("Tổng tiền: " + nf.format(total));
+        // Tính tổng ban đầu
+        updateTotal();
 
         // Xử lý khi bấm nút Thanh toán
         btnCheckout.setOnClickListener(v -> {
@@ -43,5 +38,14 @@ public class CartActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
-}
 
+    // ✅ Hàm cập nhật tổng tiền
+    private void updateTotal() {
+        int total = 0;
+        for (Product p : MyData.cartList) {
+            total += p.getPrice();
+        }
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        txtTotal.setText("Tổng tiền: " + nf.format(total));
+    }
+}

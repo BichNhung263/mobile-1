@@ -15,10 +15,17 @@ import java.util.Locale;
 public class CartAdapter extends BaseAdapter {
     private Context context;
     private List<Product> cartList;
+    private CartUpdateListener listener;
 
-    public CartAdapter(Context context, List<Product> cartList) {
+    // Interface để báo cho Activity biết khi giỏ hàng thay đổi
+    public interface CartUpdateListener {
+        void onCartUpdated();
+    }
+
+    public CartAdapter(Context context, List<Product> cartList, CartUpdateListener listener) {
         this.context = context;
         this.cartList = cartList;
+        this.listener = listener;
     }
 
     @Override
@@ -45,6 +52,7 @@ public class CartAdapter extends BaseAdapter {
         ImageView img = convertView.findViewById(R.id.imgProduct);
         TextView txtName = convertView.findViewById(R.id.txtName);
         TextView txtPrice = convertView.findViewById(R.id.txtPrice);
+        ImageView btnRemove = convertView.findViewById(R.id.btnRemove);
 
         Product p = cartList.get(position);
         img.setImageResource(p.getImage());
@@ -52,6 +60,15 @@ public class CartAdapter extends BaseAdapter {
 
         NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
         txtPrice.setText(nf.format(p.getPrice()));
+
+        // ❌ Nút xóa sản phẩm
+        btnRemove.setOnClickListener(v -> {
+            cartList.remove(position);
+            notifyDataSetChanged();
+            if (listener != null) {
+                listener.onCartUpdated(); // ✅ báo về CartActivity cập nhật lại tổng tiền
+            }
+        });
 
         return convertView;
     }

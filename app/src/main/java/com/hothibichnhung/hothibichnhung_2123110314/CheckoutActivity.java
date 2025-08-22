@@ -1,5 +1,6 @@
 package com.hothibichnhung.hothibichnhung_2123110314;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,19 +31,14 @@ public class CheckoutActivity extends AppCompatActivity {
         btnConfirm = findViewById(R.id.btnConfirm);
         listCheckoutProducts = findViewById(R.id.listCheckoutProducts);
 
-        // Hiển thị sản phẩm trong giỏ
-        CartAdapter adapter = new CartAdapter(this, MyData.cartList);
+        // ✅ Adapter hiển thị sản phẩm (chỉ xem, không xóa)
+        CartAdapter adapter = new CartAdapter(this, MyData.cartList, null);
         listCheckoutProducts.setAdapter(adapter);
 
-        // Tính tổng tiền
-        int total = 0;
-        for (Product p : MyData.cartList) {
-            total += p.getPrice();
-        }
-        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-        txtTotalCheckout.setText("Tổng tiền: " + nf.format(total));
+        // ✅ Cập nhật tổng tiền
+        updateTotal();
 
-        // Xử lý xác nhận thanh toán
+        // ✅ Xử lý xác nhận thanh toán
         btnConfirm.setOnClickListener(v -> {
             String name = edtName.getText().toString().trim();
             String phone = edtPhone.getText().toString().trim();
@@ -52,9 +48,25 @@ public class CheckoutActivity extends AppCompatActivity {
                 Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Đặt hàng thành công! Cảm ơn " + name, Toast.LENGTH_LONG).show();
-                MyData.cartList.clear(); // Xóa giỏ hàng sau khi đặt
-                finish(); // quay lại CartActivity
+
+                // ✅ Xóa giỏ hàng
+                MyData.cartList.clear();
+
+                // ✅ Quay về trang Home
+                Intent intent = new Intent(CheckoutActivity.this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
             }
         });
+    }
+
+    private void updateTotal() {
+        int total = 0;
+        for (Product p : MyData.cartList) {
+            total += p.getPrice();
+        }
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        txtTotalCheckout.setText("Tổng tiền: " + nf.format(total));
     }
 }
